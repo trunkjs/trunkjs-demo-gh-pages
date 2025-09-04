@@ -1,0 +1,6 @@
+.idea
+composer.lock
+/vendor/
+libs/
+/workspaces
+/node_modules

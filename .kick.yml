@@ -1,0 +1,31 @@
+# Kickstart container config file - see https://gitub.com/infracamp/kickstart
+# Run ./kickstart.sh to start a development-container for this project
+version: 1
+from: "ghcr.io/nfra-project/kickstart-flavor-jekyll:3.0"
+ports: "80:80;4000:4000;4100:4100"
+
+command:
+  build:
+    - "jekyll build -s /opt/docs -d /var/www/html"
+
+  sass:
+    - "sass -t compressed /opt/docs/_sass/theme.scss /opt/docs/assets/theme.css"
+  run:
+
+  resize_images:
+    - 'find /opt/docs/assets/stock -type f -exec mogrify -quality 65 -resize 1920x920^\> {} \;'
+
+  jekyll: |
+    JEKYLL_LOG_LEVEL=info jekyll serve -s /opt/docs -d /var/www/html --drafts --livereload --port 4000 --livereload-port 4100 --host 0.0.0.0
+
+  dev:
+    - "killall jekyll ||  echo 'no job'"
+    - "D:kick jekyll</dev/zero"
+
+  init-workspaces:
+    - "mkdir -p workspaces"
+    - "git -C ./workspaces/ clone  git@github.com:dermatthes/leu-web-components.git"
+    - "npm install"
+
+  killall:
+    - killall jekyll

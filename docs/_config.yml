@@ -1,0 +1,38 @@
+# Changes to this file will NOT be reloaded in jekyll --watch mode! Restart
+# jekyll after updating this file!
+
+title: leuffen.de
+description:
+google_analytics:
+show_downloads: true
+url: https://med.leuffen.de
+
+# Make directory-style links
+permalink: pretty
+#exclude: ['assets']
+
+sass:
+  sass_dir: _sass_disabled
+
+page:
+  type: article
+
+
+livereload: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+  # /index/ path will be mounted to /
+  - scope:
+      path: "index"
+    values:
+      permalink: /
+
+plugins:
+- jekyll-optional-front-matter
+- jekyll-sitemap
+
